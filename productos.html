@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Ninfac</title>
+        <script>
+            window.onload = function(){
+                document.getElementById('codigo').focus();
+            } 
+        </script>
+
+    </head>
+    <body class="PageBODY">
+        <form method="POST" action="{FileName}" name="frm" id="frm" style="background-color:white;">
+            <center>
+            <div id='frm_errorloc' class='frm_strings' style="background-color:orange; border-radius: 4px; border: 0px ; width:500px; text-align: center"></div>
+            <div style="width:600px; font-size: large; background-color: #FFCC99;">{FormTitle}</div>
+            <div style="width:600px">
+                <input type="hidden" name="id" id="id" value="{id}">
+                <input type="hidden" name="estado" id="estado" value="{estado}">
+                <table border="1" style="width:600px">
+                    <tr>
+                        <td><strong>C&oacute;digo</strong>&nbsp; </td>
+                        <td><input type="text" value="{codigo}" name="codigo" id="codigo" style="width: 400px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grupo</strong>&nbsp; </td>
+                        <td>
+                            <select name="id_grupo" id="id_grupo">
+                                {id_grupo}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td> <input type="text" value="{nombre}" name="nombre" id="nombre" style="width: 400px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Presentaci&oacute;n</b></td>
+                        <td>
+                            <select name="presentacion" id="presentacion">
+                                {presentacion}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Precio cls iva</b></td>
+                        <td> <input type="text" value="{precio_cls_iva}" name="precio_cls_iva" id="precio_cls_iva" style="width: 306px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Precio clc iva</b></td>
+                        <td> <input type="text" value="{precio_clc_iva}" name="precio_clc_iva" id="precio_clc_iva" style="width: 306px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Precio pc iva</b></td>
+                        <td> <input type="text" value="{precio_pc_iva}" name="precio_pc_iva" id="precio_pc_iva" style="width: 306px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Precio de costo</b></td>
+                        <td  align='right'> <input type="text" value="{precio_costo}" name="precio_costo" id="precio_costo" style="width: 306px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Vi&ntilde;eta</b></td>
+                        <td> <input type="text" value="{vineta}" name="vineta" id="vineta" style="width: 400px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                    <tr>
+                        <td><b>Estado</b></td>
+                        <td> 
+                            <select name="estado" id="estado">
+                                {estado}
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="div4" style="width:500px; font-size:16px; text-align: left">
+                <br />
+                <input type="submit" value="Guardar" />
+                <input type="button" value="Nuevo" onclick="window.location = 'productos.php'"/>
+            </div>
+            <br />
+            <br />
+            </center>
+        </form>
+        <div id="div_mess"></div>
+     <center>
+        <table style="width: 800px; border-collapse:collapse" border="1">
+                <tr>
+                    <td style="background-color: #FFCC99">Codigo</td>
+                    <td style="background-color: #FFCC99">Grupo</td>
+                    <td width="300px" style="background-color: #FFCC99">Nombre</td>
+                    <td style="background-color: #FFCC99">Presentaci&oacute;n</td>
+                    <td style="background-color: #FFCC99">Precio cls iva</td>
+                    <td style="background-color: #FFCC99">Precio clc iva</td>
+                    <td style="background-color: #FFCC99">Precio pc iva</td>
+                    <td style="background-color: #FFCC99">Precio de costo</td>
+                    <td style="background-color: #FFCC99">Vi&ntilde;eta</td>
+                </tr>
+            {tblbody}
+        </table>
+    </center>
+    <script language="Javascript">
+        var frmvalidator  = new Validator("frm");
+        frmvalidator.EnableOnPageErrorDisplaySingleBox();
+        frmvalidator.EnableMsgsTogether();
+        frmvalidator.addValidation("nombre","required","Falta llenar campo de nombre para guardar");
+    </script>
+</body>
+</html>

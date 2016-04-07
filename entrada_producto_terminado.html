@@ -1,0 +1,128 @@
+<html>
+    <head>
+        <title>Ninfac</title>
+        <!--creado por Julio Castillo, abril de 2013-->
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link rel="stylesheet" href="" type="text/css">
+       
+        <style type="text/css">
+            .style1
+            {
+                width: 59px;
+            }
+            #Text1
+            {
+                width: 75px;
+            }
+            #Text3
+            {
+                width: 93px;
+            }
+            #Text4
+            {
+                width: 81px;
+            }
+            #Text5
+            {
+                width: 190px;
+            }
+            #Submit1 {}
+        </style>
+       
+    </head>
+    <body class="PageBODY">
+        <form method="POST" action="{action}" name="frm" id="frm" style="background-color:white;">
+            <center>
+            <div style="width:500px; font-size: large; background-color: #FFCC99;">{FormTitle}</div>
+            <div id='frm_errorloc' class='frm_strings' style="background-color:magenta; border-radius: 4px; border: 0px ; width:500px; text-align: center"></div>
+            <table>
+                <td>Tipo de entrada</td>
+                <td>
+                    <select name="tipo_entrada" id="tipo_entrada">
+                        <option value="000">...Seleccione...</option>
+                        {tipo_entrada}
+                    </select>
+                </td>
+                <tr>
+                <td>N&uacute;mero de entrada</td>
+                    <td>
+                        <input type="text" name="n_entrada" value="{n_entrada}" size="10" maxlength="10">
+                    </td>
+                </tr>
+                <tr>
+                <td>Fecha de la entrada</td>
+                    <td>
+                        <input type="text" name="fecha_entrada" value="{fecha_entrada}" id="fecha_entrada" size="10"  onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)">
+                        <input type="button" value="..." id="fecha_entrada_btn">
+                    </td>
+                </tr>
+            </table>
+
+            <table style="border-width: thin; border-style: dotted">
+                <th>Producto</th><th>Lote</th><th>Cantidad</th><th>Precio</th><th>Comentario</th>
+                <tr>
+                    <td>
+                        <select name="id_producto" id="id_producto">
+                            <option value="000">...Seleccione...</option>
+                            {id_producto}
+                        </select>
+                        <input type="button" value="..."  tabindex="" onclick="popup('busqueda_producto.php?field=id_producto&form=frm');" />
+                    </td>
+                     <td class="style1">
+                         <input id="lote" type="text" name="lote" value="{lote}" size="8" maxlength="20"/>
+                    </td>
+                    <td>
+                        <input id="cantidad" type="text" name="cantidad" value="{cantidad}" size="8" maxlength="10"/>
+                    </td>
+                    <td>
+                        <input id="precio_unit" type="text" name="precio_unit" value="{precio_unit}" size="8" maxlength="10"/>
+                    </td>
+                    <td>
+                        <input id="comentario" type="text" name="comentario" value="{comentario}" />
+                    </td>
+                </tr>
+            </table>
+            </center>
+           <p style="text-align: center">
+                <input type="submit" value="Guardar y agregar otro" id="guardarynuevo" />&nbsp;
+				<input id="eliminar" type="button" value="Eliminar" onclick="window.location = 'entrada_producto_terminado.php?req=5&id={ID}&finicio='+document.getElementById('fecha_entrada').value+'&ffin='+document.getElementById('fecha_entrada').value" />
+                <input id="cancelar" type="button" value="Cancelar" onclick="window.location = 'busqueda_entrada_producto_terminado.php?finicio='+document.getElementById('fecha_entrada').value+'&ffin='+document.getElementById('fecha_entrada').value" />
+           </p>
+        </form>
+        
+        <div id="div_tbl_detalle" align="center">
+            {tbl_detalle}
+        </div>
+</body>
+    <script language="Javascript">
+        //<![CDATA[
+        Calendar.setup({
+            inputField : "fecha_entrada",
+            trigger    : "fecha_entrada_btn",
+            onSelect   : function() { this.hide() },
+            showTime   : 12,
+            weekNumbers: true,
+            //dateFormat : "%Y-%m-%d %I:%M %p"
+            dateFormat : "%d/%m/%Y",
+            align      : ""
+        });
+
+        function popup(URL) {
+            myWindow = window.open(URL, '" + "', 'scrollbars=yes, width=600, height=600, top = 50');
+        }
+        
+        var frmvalidator  = new Validator("frm");
+        frmvalidator.EnableOnPageErrorDisplaySingleBox();
+        frmvalidator.EnableMsgsTogether();
+
+        frmvalidator.addValidation("tipo_entrada","dontselect=000","Seleccione tipo de entrada");
+        frmvalidator.addValidation("id_producto","dontselect=000","Seleccione producto");
+        frmvalidator.addValidation("fecha_entrada","required","Ingrese fecha de entrada");
+        frmvalidator.addValidation("lote","required","Ingrese lote");
+        frmvalidator.addValidation("cantidad","required","Ingrese cantidad");
+        frmvalidator.addValidation("precio_unit","required","Ingrese precio unitario");
+        frmvalidator.addValidation("cantidad","greaterthan=0","Cantidad debe ser mayor que cero");
+        frmvalidator.addValidation("precio_unit","greaterthan=0","El precio unitario debe ser mayor de cero");
+    </script>
+
+</html>

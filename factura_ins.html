@@ -1,0 +1,243 @@
+<html>
+    <head>
+        <title>Ninfac</title>
+        <!--creado por Julio Castillo, abril de 2013-->
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link rel="stylesheet" href="" type="text/css">
+       
+        <style type="text/css">
+            .style1
+            {
+                width: 59px;
+            }
+            #Text1
+            {
+                width: 182px;
+            }
+            #Text3
+            {
+                width: 93px;
+            }
+            #Text4
+            {
+                width: 81px;
+            }
+            #Text5
+            {
+                width: 182px;
+            }
+            #Submit1 {}
+            #Text6 {
+                width: 100px;
+            }
+            #Text7 {
+                width: 182px;
+            }
+            #Text8
+            {
+                width: 81px;
+            }
+            #Text9
+            {
+                width: 81px;
+            }
+            #Text10
+            {
+                width: 81px;
+            }
+            #Text11
+            {
+                width: 81px;
+            }
+            </style>
+       
+    </head>
+    <body class="PageBODY">
+        <form method="POST" action="{action}" name="frm" id="frm" style="background-color:white;">
+            <input type="hidden" value="{id_documento}" name="id_documento" id="id_documento"/>
+            <center>
+            <div style="width:500px; font-size: large; background-color: #FFCC99;">{FormTitle}</div>
+            <div id='frm_errorloc' class='frm_strings' style="background-color:red; border-radius: 4px; border: 0px ; width:500px; text-align: center"></div>
+            <table>
+                <td>Tipo de documento:</td>
+                <td>
+                    <select name="tipo_documento" id="tipo_documento">
+                        <option value="000">...Seleccione...</option>
+                        {tipo_documento}
+                    </select>
+                </td>
+                <tr>
+                <td>N&uacute;mero de documento</td>
+                    <td>
+                        <input type="text" name="n_documento" id="n_documento" value="{n_documento}" size="10" maxlength="10">
+                    </td>
+                </tr>
+                <tr>
+                <td>Fecha</td>
+                    <td>
+                        <input type="text" name="fecha_documento" value="{fecha_documento}" id="fecha_documento" size="10"  onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)">
+                        <input type="button" value="..." id="fecha_documento_btn">
+                    </td>
+                </tr>
+                <tr>
+                <td>Cliente</td>
+                    <td>
+                    <select name="id_cliente" id="id_cliente">
+                        <option value="000">...Seleccione...</option>
+                        {id_cliente}
+                    </select>
+                        <input onclick="popup('busqueda_cliente.php?field=id_cliente&amp;form=frm');" tabindex="" type="button" value="..." /></td>
+                </tr>
+                <tr>
+                <td>Hecho por</td>
+                    <td>
+                        <input type="text" name="hecho_por" id="hecho_por" value="{hecho_por}"/></td>
+                </tr>
+                <tr>
+                <td>Condiciones de pago</td>
+                    <td>
+                        <select name="condicion_pago" id="condicion_pago">
+                            <option value="000">...Seleccione...</option>
+                            {condicion_pago}
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                <td>No. Nota de remisi&oacute;n</td>
+                    <td>
+                        <input type="text" name="n_notaremi" id="n_notaremi"  value="{n_notaremi}" size="10" maxlength="10" /></td>
+                </tr>
+                <tr>
+                <td>Fecha Nota de remisi&oacute;n</td>
+                    <td>
+                        <input name="fecha_notaremi" id="fecha_notaremi"  value="{fecha_notaremi}" onblur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)" size="10" type="text" />
+                        <input type="button" value="..." id="fecha_notaremi_btn"></td>
+                </tr>
+                <tr>
+                <td>Venta a cuenta de</td>
+                    <td>
+                        <input type="text" name="venta_a_cta" value="{venta_a_cta}" id="venta_a_cta" /></td>
+                </tr>
+                <tr>
+                <td>No. de pedido</td>
+                    <td>
+                        <input  type="text" name="n_pedido" id="n_pedido" value="{n_pedido}" size="10" maxlength="10" /></td>
+                </tr>
+                <td>Comentario</td>
+                    <td>
+                        <input  type="text" name="comentario" id="comentario" value="{comentario}" size="100" maxlength="100" /></td>
+                </tr>
+				
+            </table>
+
+            <table style="border-width: thin; border-style: dotted">
+                <th>Cantidad</th>
+                <th>Producto</th><th>Precio<br />
+                Unitario</th><th class="style1">Ventas<br />
+                    No sujetas</th><th>Ventas<br />
+                    Exentas</th><th>Ventas<br />
+                    Gravadas</th>
+                <tr>
+                    <td>
+                        <input type="text" name="cantidad" id="cantidad" value="{cantidad}" maxlength="10" size="10" onblur="calculo_ventas()" style="text-align: center"/></td>
+                    <td>
+                        <select name="id_producto" id="id_producto">
+                            <option value="000">...Seleccione...</option>
+                            {id_producto}
+                        </select>
+                        <input type="button" value="..."  tabindex="" onclick="popup('busqueda_producto.php?field=id_producto&form=frm');" />
+                    </td>
+                     <td class="style1">
+                        <input type="text" id="precio_unit" name="precio_unit" value="{precio_unit}" maxlength="10" size="10" onblur="calculo_ventas()" style="text-align: right"/><td>
+                        <input type="text" id="ventas_no_sujetas" name="ventas_no_sujetas" value="{ventas_no_sujetas}" maxlength="10" size="10" style="text-align: right"/></td>
+                    </td>
+                    <td>
+                        <input type="text" id="ventas_exentas" name="ventas_exentas" value="{ventas_exentas}" maxlength="10" size="10" style="text-align: right"/></td>
+                    <td>
+                        <input type="text" id="ventas_gravadas" name="ventas_gravadas" value="{ventas_gravadas}" maxlength="10" size="10" style="text-align: right"/></td>
+                </tr>
+            </table>
+            </center>
+           <p style="text-align: center">
+                <input type="submit" value="Guardar y agregar otro" id="guardarynuevo" />&nbsp;
+                <input type="button" value="Imprimir" id="imprimir" onclick="popup('printpreview.php?printcode=1&id_documento='+document.getElementById('id_documento').value)" />
+                <input id="cancelar" type="button" value="Cancelar" onclick="window.location = 'busqueda_factura.php?finicio='+document.getElementById('fecha_documento').value+'&ffin='+document.getElementById('fecha_documento').value" />
+           </p>
+        </form>
+        
+        <div id="div_tbl_detalle" align="center">
+            {tbl_detalle}
+        </div>
+
+</body>
+<script type="text/javascript">
+        //<![CDATA[
+        Calendar.setup({
+            inputField : "fecha_documento",
+            trigger    : "fecha_documento_btn",
+            onSelect   : function() { this.hide() },
+            showTime   : 12,
+            weekNumbers: true,
+            //dateFormat : "%Y-%m-%d %I:%M %p"
+            dateFormat : "%d/%m/%Y",
+            align      : ""
+        });
+
+        Calendar.setup({
+            inputField: "fecha_notaremi",
+            trigger: "fecha_notaremi_btn",
+            onSelect: function () { this.hide() },
+            showTime: 12,
+            weekNumbers: true,
+            //dateFormat : "%Y-%m-%d %I:%M %p"
+            dateFormat: "%d/%m/%Y",
+            align: ""
+        });
+        function popup(URL) {
+            myWindow = window.open(URL, '" + "', 'scrollbars=yes, width=600, height=600, top = 50');
+        }
+        
+        
+        function calculo_ventas(){
+            var c = parseInt(document.getElementById('cantidad').value)
+            var p = parseFloat(document.getElementById('precio_unit').value)
+            var t = c*p
+            if (document.getElementById('cantidad').value!="" && document.getElementById('precio_unit').value!=""){
+                document.getElementById('ventas_gravadas').value = decimales(t,2);
+                document.getElementById('precio_unit').value = decimales(p,2)
+            }
+        }
+        
+        
+        function decimales(num, dec) {
+			var num = parseFloat(num).toFixed(dec);
+            return num;
+        }
+        
+        
+        
+        var frmvalidator  = new Validator("frm");
+        frmvalidator.EnableOnPageErrorDisplaySingleBox();
+        frmvalidator.EnableMsgsTogether();
+		
+        frmvalidator.addValidation("tipo_documento", "dontselect=000", "Seleccione tipo de documento");
+        frmvalidator.addValidation("n_documento", "required", "Ingrese numero de documento");
+        frmvalidator.addValidation("n_documento", "greaterthan=0", "Ingrese numero de documento mayor a 0");
+        
+        frmvalidator.addValidation("fecha_documento", "required", "Ingrese fecha de documento");
+        frmvalidator.addValidation("id_cliente", "dontselect=000", "Seleccione cliente");
+        frmvalidator.addValidation("condicion_pago", "dontselect=000", "Seleccione condicion pago");
+		
+        frmvalidator.addValidation("cantidad", "required", "Ingrese cantidad");
+        frmvalidator.addValidation("cantidad", "greaterthan=0", "Cantidad debe ser mayor de cero");
+        frmvalidator.addValidation("id_producto", "dontselect=000", "Seleccione producto");
+        frmvalidator.addValidation("precio_unit", "required", "Ingrese precio unitario");
+        //frmvalidator.addValidation("precio_unit", "greaterthan=0", "Ingrese precio unitario");//
+        mvalidator.addValidation("ventas_gravadas", "required", "Ingrese ventas gravadas");
+        mvalidator.addValidation("ventas_gravadas", "greaterthan=0", "Ventas gravadas no valido");
+        
+      
+    </script>
+
+</html>
