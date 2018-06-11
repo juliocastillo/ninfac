@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 $_SESSION['login'];
 extract($_GET);
@@ -21,24 +21,24 @@ class Vista_form extends Model_form {
     public function get_form($args) {
         
         $diccionario = array(
-            'form' => array(
-            'action'=>$args[action],
-            'FormTitle'=>$args[FormTitle],
-            'id_documento' => $args[id_documento],
-            'n_documento' => $args[n_documento],
-            'fecha_documento' => $args[fecha_documento],
-            'hecho_por' => $args[hecho_por],
-			'comentario' => $args[comentario],
-            'n_notaremi' => $args[n_notaremi],
-            'fecha_notaremi' => $args[fecha_notaremi],
-            'n_pedido' => $args[n_pedido],
-            'venta_a_cta' => $args[venta_a_cta],     
-            'cantidad' => $args[cantidad],
-            'precio_unit' => $args[precio_unit],
-            'ventas_no_sujetas' => $args[ventas_no_sujetas],
-            'ventas_exentas' => $args[ventas_exentas],
-            'ventas_gravadas' => $args[ventas_gravadas],    
-            'tbl_detalle'=> $args[tbl_detalle]
+            'form'              => array(
+            'action'            => $args['action'],
+            'FormTitle'         => $args['FormTitle'],
+            'id_documento'      => $args['id_documento'],
+            'n_documento'       => $args['n_documento'],
+            'fecha_documento'   => $args['fecha_documento'],
+            'hecho_por'         => $args['hecho_por'],
+            'comentario'        => $args['comentario'],
+            'n_notaremi'        => $args['n_notaremi'],
+            'fecha_notaremi'    => $args['fecha_notaremi'],
+            'n_pedido'          => $args['n_pedido'],
+            'venta_a_cta'       => $args['venta_a_cta'],     
+            'cantidad'          => $args['cantidad'],
+            'precio_unit'       => $args['precio_unit'],
+            'ventas_no_sujetas' => $args['ventas_no_sujetas'],
+            'ventas_exentas'    => $args['ventas_exentas'],
+            'ventas_gravadas'   => $args['ventas_gravadas'],    
+            'tbl_detalle'       => $args['tbl_detalle']
             )
         );
         
@@ -373,27 +373,28 @@ class Model_form {
 
 extract($_GET);
 extract($_POST);
+isset($_GET['req']) ? $req=$_GET['req'] : $req=0;
 
-if (!$req) {//ingresar nuevo registro desde cero
+if ($req==0) {//ingresar nuevo registro desde cero
     $db = new MySQL();
     $vista = new Vista_form();
     $model = new Model_form();
     $args = array ( // parametro que se pasaran a la vista
-            'form' => 'factura_ins.html',
-            'action' => 'factura_ins.php?req=2',
-            'FormTitle' => 'LABORATORIOS WÖHLER S.A. DE C.V.',
-            'id_documento'=>$id_documento,
-            'n_documento' => $n_documento,
+            'form'          => 'factura_ins.html',
+            'action'        => 'factura_ins.php?req=2',
+            'FormTitle'     => 'LABORATORIOS WÖHLER S.A. DE C.V.',
+            'id_documento'  => $id_documento,
+            'n_documento'   => $n_documento,
             'fecha_documento' => $fecha_documento,
-            'hecho_por' => $hecho_por,
-			'comentario'=> $comentario,
+            'hecho_por'     => $hecho_por,
+            'comentario'    => $comentario,
             'fecha_nota_remision' => $fecha_nota_remision,
-            'cantidad' => $cantidad,
-            'precio_unit' => $precio_unit,
+            'cantidad'      => $cantidad,
+            'precio_unit'   => $precio_unit,
             'ventas_no_sujetas' => $ventas_no_sujetas,
             'ventas_exentas' => $ventas_exentas,
             'ventas_gravadas' => $ventas_gravadas,
-            'tbl_detalle'=> ''
+            'tbl_detalle'   => ''
             );
     
     $vista->get_form($args);
@@ -418,23 +419,22 @@ elseif ($req == 3) {//mostrar para modificar registro
     
     
     $args = array ( // parametro que se pasaran a la vista
-            'form' => 'factura_ins.html',
-            'action' => 'factura_ins.php?req=4&id_documento='.$id_documento,
-            'FormTitle' => 'LABORATORIOS WÖHLER S.A. DE C.V.',
-            'id_documento'=>$id_documento,
-            'tipo_documento'=> $rec[tipo_documento],
-            'n_documento'=> $rec[n_documento],
-            'fecha_documento'=> datetosp($rec[fecha_documento]),
-            'id_cliente'=> $rec[id_cliente], 
-            'n_notaremi'=> $rec[n_notaremi], 
-            'fecha_notaremi'=> datetosp($rec[fecha_notaremi]), 
-            'condicion_pago'=> $rec[condicion_pago], 
-            'venta_a_cta'=> $rec[venta_a_cta], 
-            'n_pedido'=> $rec[n_pedido], 
-            'hecho_por'=> $rec[hecho_por],
-			'comentario'=> $rec[comentario],
-			
-            'tbl_detalle'=> $tbl_detalle
+            'form'          => 'factura_ins.html',
+            'action'        => 'factura_ins.php?req=4&id_documento='.$id_documento,
+            'FormTitle'     => 'LABORATORIOS WÖHLER S.A. DE C.V.',
+            'id_documento'  =>$id_documento,
+            'tipo_documento'=> $rec['tipo_documento'],
+            'n_documento'   => $rec['n_documento'],
+            'fecha_documento'=> datetosp($rec['fecha_documento']),
+            'id_cliente'    => $rec['id_cliente'], 
+            'n_notaremi'    => $rec['n_notaremi'], 
+            'fecha_notaremi'=> datetosp($rec['fecha_notaremi']), 
+            'condicion_pago'=> $rec['condicion_pago'], 
+            'venta_a_cta'   => $rec['venta_a_cta'], 
+            'n_pedido'      => $rec['n_pedido'], 
+            'hecho_por'     => $rec['hecho_por'],
+            'comentario'    => $rec['comentario'],
+            'tbl_detalle'   => $tbl_detalle
             );
     
     $vista->get_form($args);
@@ -463,29 +463,28 @@ elseif ($req == 5) {//mostrar para modificar registro
     
     
     $args = array ( // parametro que se pasaran a la vista
-            'form' => 'factura_ins.html',
-            'action' => 'factura_ins.php?req=6&id_documento='.$id_documento.'&id_detalle='.$id_detalle,
-            'FormTitle' => 'LABORATORIOS WÖHLER S.A. DE C.V.',
-            'id_documento'=>$id_documento,
+            'form'          => 'factura_ins.html',
+            'action'        => 'factura_ins.php?req=6&id_documento='.$id_documento.'&id_detalle='.$id_detalle,
+            'FormTitle'     => 'LABORATORIOS WÖHLER S.A. DE C.V.',
+            'id_documento'  =>$id_documento,
             'tipo_documento'=> $rec[tipo_documento],
-            'n_documento'=> $rec[n_documento],
+            'n_documento'   => $rec[n_documento],
             'fecha_documento'=> datetosp($rec[fecha_documento]),
-            'id_cliente'=> $rec[id_cliente], 
-            'n_notaremi'=> $rec[n_notaremi], 
+            'id_cliente'    => $rec[id_cliente], 
+            'n_notaremi'    => $rec[n_notaremi], 
             'fecha_notaremi'=> datetosp($rec[fecha_notaremi]), 
             'condicion_pago'=> $rec[condicion_pago], 
-            'venta_a_cta'=> $rec[venta_a_cta], 
-            'n_pedido'=> $rec[n_pedido], 
-            'hecho_por'=> $rec[hecho_por],
-			'comentario'=> $rec[comentario],
-        
-            'cantidad'=> $rec_detalle[cantidad], 
-            'id_producto'=> $rec_detalle[id_producto],
-            'precio_unit'=> $rec_detalle[precio_unit], 
+            'venta_a_cta'   => $rec[venta_a_cta], 
+            'n_pedido'      => $rec[n_pedido], 
+            'hecho_por'     => $rec[hecho_por],
+            'comentario'    => $rec[comentario],
+            'cantidad'      => $rec_detalle[cantidad], 
+            'id_producto'   => $rec_detalle[id_producto],
+            'precio_unit'   => $rec_detalle[precio_unit], 
             'ventas_no_sujetas'=> $rec_detalle[ventas_no_sujetas],
             'ventas_exentas'=> $rec_detalle[ventas_exentas], 
             'ventas_gravadas'=> $rec_detalle[ventas_gravadas],
-            'tbl_detalle'=> $tbl_detalle
+            'tbl_detalle'   => $tbl_detalle
             );
     
     $vista->get_form($args);

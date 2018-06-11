@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['login'];
 extract($_GET);
-if ($salir==1){
+if (isset($salir)){
     $_SESSION['login']=false;
 } 
 
@@ -12,7 +12,7 @@ if ($_SESSION['login']==true){
     require_once('menuprincipal.php');
 } else {
     echo "<script>window.location = './login.php'</script>";
-} 
+}
 ?>
 
 

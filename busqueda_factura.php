@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 $_SESSION['login'];
 extract($_GET);
@@ -28,9 +28,11 @@ extract($_GET);
         <link rel="stylesheet" href="" type="text/css">
        
     </head>
-    <body class="PageBODY"><form action="" method="get" name="buscar" style="background-color: white">
+    <body class="PageBODY">
+        <form action="" method="get" name="frm" style="background-color: white">
     <center>
     <div style="border: 1px seagreen solid;  border-radius: 1px; width: 800px; position: relative;">
+    <div id='frm_errorloc' class='frm_strings' style="background-color:orange; border: 0px; text-align: center"></div>
     <table style="width:100%">
         <tr>
         <td colspan="4" align="center" style="border: 1px gainsboro outset; background: gainsboro">
@@ -41,18 +43,18 @@ extract($_GET);
             <td class="" align="right">
                 <font class="ColumnFONT"><b>N&uacute;mero de documento</b></font>
             </td><td colspan="3" align="left" class="">
-                <input type="text" name="n_documento" value="<?php echo $n_documento; ?>" id="n_documento" size="10" maxlength="10" tabindex="6" />
+                <input type="text" name="n_documento" value="<?php if(isset($n_documento)) echo $n_documento; ?>" id="n_documento" size="10" maxlength="10" tabindex="6" />
             </td>
             </td>
         </tr>
         <tr >
             <td class="" align="right">
-                <font class="ColumnFONT"><b>Fecha: desde </b></font>
+                <font class="ColumnFONT"><b>Fecha: </b>desde</font>
             </td><td colspan="3" align="left" class="">
-                <input type="text" name="finicio" value="<?php echo $finicio; ?>" id="finicio" size="10" maxlength="10" tabindex="6" onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)"/></input>
+                <input type="text" name="finicio" value="<?php if(isset($finicio)) echo $finicio; ?>" id="finicio" size="10" maxlength="10" tabindex="6" onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)"/></input>
                 <input type="button" value="..." id="finicio_btn" tabindex="7" ></input>
                 <!--<font class="ColumnFONT"><b>hasta</b></font>-->
-                Hasta <input type="text"  name="ffin" value="<?php echo $ffin; ?>" id="ffin" size="10" maxlength="10" tabindex="8" onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)" /></input>
+                Hasta <input type="text"  name="ffin" value="<?php if(isset($ffin)) echo $ffin; ?>" id="ffin" size="10" maxlength="10" tabindex="8" onBlur="formatofecha(this.id, this.value); date_system_valid(this.id)" onkeyup="mascara(this,'/',patron,true)" /></input>
                 <input type="button" value="..." id="ffin_btn" tabindex="9" ></input>
             </td>
             </td>
@@ -65,18 +67,18 @@ extract($_GET);
     </table>
     </div>
 </form>
-<?
-if ($cambio_estado=='I'){
+<?php
+if (isset($cambio_estado) && $cambio_estado=='I'){
 	$model->cambiar_estado_facturacin($id,'I');
 }
-elseif ($cambio_estado=='A'){
+elseif (isset($cambio_estado) && $cambio_estado=='A'){
 	$model->cambiar_estado_facturacin($id,'A');
 }
 
 
-if (($finicio!="" && $ffin!="") || $n_documento!="") {
-    if ($finicio!="") $finicio = datetosql($finicio);
-    if ($ffin!="") $ffin = datetosql($ffin);
+if ((isset($finicio) && isset($ffin)) || isset($n_documento)) {
+    if (isset($finicio)) $finicio = datetosql($finicio);
+    if (isset($ffin)) $ffin = datetosql($ffin);
     $consulta=$model->get_lista_factura($finicio, $ffin, $n_documento);
     ?>
         <br>
@@ -124,7 +126,7 @@ if (($finicio!="" && $ffin!="") || $n_documento!="") {
         </tr>
     </table>
 </div>
-<? } ?>
+<?php } ?>
     
 </body>
 <script language="Javascript">
@@ -153,6 +155,14 @@ if (($finicio!="" && $ffin!="") || $n_documento!="") {
         function popup(URL) {
             myWindow = window.open(URL, '" + "', 'scrollbars=yes, width=600, height=600, top = 50');
         }
+
+        var frmvalidator  = new Validator("frm");
+        frmvalidator.EnableOnPageErrorDisplaySingleBox();
+        frmvalidator.EnableMsgsTogether();
+		
+        frmvalidator.addValidation("finicio", "required", "Ingrese fecha desde");
+        frmvalidator.addValidation("ffin", "required", "Ingrese fecha de fin");
+
 </script>
 
 </html>

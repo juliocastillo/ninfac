@@ -1,11 +1,11 @@
-<?
+<?php
 class MySQL{
     private $conexion;
     private $total_consultas;
     public function MySQL(){
         if(!isset($this->conexion)){
             $this->conexion = (mysql_connect("localhost","root","123")) or die(mysql_error());
-            mysql_select_db("ninfacdb",$this->conexion) or die(mysql_error());
+            mysql_select_db("ninfacwohler",$this->conexion) or die(mysql_error());
         }
     }
     public function consulta($consulta){

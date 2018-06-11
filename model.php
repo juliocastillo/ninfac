@@ -598,13 +598,7 @@ class Model{
                     usuario_login = '$usuario_login' AND
                     usuario_password = '$usuario_password'
                 ";
-        $consulta = $db->consulta($sql);
-        if ($db->num_rows($consulta)==1){
-            return true;
-        } else {
-            return false;
-        }
-        
+        return $db->fetch_array($db->consulta($sql));
     } 
     
 }
