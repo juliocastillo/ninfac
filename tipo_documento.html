@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Ninfac</title>
+        <script>
+            window.onload = function(){
+                document.getElementById('tipo_documento').focus();
+            } 
+        </script>
+
+    </head>
+    <body class="PageBODY">
+        <form method="POST" action="{FileName}" name="frm" id="frm" style="background-color:white;">
+            <center>
+            <div id='frm_errorloc' class='frm_strings' style="background-color:orange; border-radius: 4px; border: 0px ; width:500px; text-align: center"></div>
+            <div style="width:600px; font-size: large; background-color: #FFCC99;">{FormTitle}</div>
+            <div style="width:600px">
+                <input type="hidden" name="id" id="id" value="{id}">
+                <table border="1" style="width:600px">
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><input type="text" value="{tipo_documento}" name="tipo_documento" id="tipo_documento" style="width: 400px; height: 24px; font-size: medium;" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="div4" style="width:500px; font-size:16px; text-align: left">
+                <br />
+                <input type="submit" value="Guardar" />
+                <input type="button" value="Nuevo" onclick="window.location = 'tipo_documento.php'"/>
+            </div>
+            <br />
+            <br />
+            </center>
+        </form>
+        <div id="div_mess"></div>
+     <center>
+        <table style="width: 800px; border-collapse:collapse" border="1">
+                <tr>
+                    <td width="300px" style="background-color: #FFCC99">Nombre</td>
+                </tr>
+            {tblbody}
+        </table>
+    </center>
+    <script language="Javascript">
+        var frmvalidator  = new Validator("frm");
+        frmvalidator.EnableOnPageErrorDisplaySingleBox();
+        frmvalidator.EnableMsgsTogether();
+        frmvalidator.addValidation("tipo_documento","required","Falta llenar campo de nombre para guardar");
+    </script>
+</body>
+</html>
