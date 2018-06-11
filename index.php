@@ -9,6 +9,7 @@ if (isset($salir)){
 if ($_SESSION['login']==true){
     require_once('common.html');
     include ("./conexion.php");
+    echo "<text style='font-size:10px;'>".$_SESSION['username']."</text>";
     require_once('menuprincipal.php');
 } else {
     echo "<script>window.location = './login.php'</script>";

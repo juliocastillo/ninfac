@@ -9,6 +9,7 @@ if ($_SESSION['login']!=true){
 //archivos comunes *********************************
 include_once ('./common.html');
 include ("./conexion.php");
+echo "<text style='font-size:10px;'>".$_SESSION['username']."</text>";
 require_once('./menuprincipal.php');
 //**************************************************
 include ("./llenarlistas.php");
