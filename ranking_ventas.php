@@ -76,7 +76,7 @@ if ($finicio && $ffin) {
                     <tr>
                        <td align="center" style="background-color: white;border: 1px gainsboro solid; padding: 3px"><font class="ColumnFONT"><?php echo $i; ?></td>
                        <td style="background-color: white; border: 1px gainsboro solid; font-family: arial; font-size: 15px">
-                           <a href="kardex.php?id_producto=<?=$row['id'].'&finicio='.$finicio.'&ffin='.$ffin.'&saldo='.$row['saldo_anterior']; ?>" target="_blank" ><? echo $row['nombre']; ?></a></td>
+                           <? echo $row['nombre']; ?></td>
                        <td align="right" style="background-color: white;border: 1px gainsboro solid;font-weight: normal;"><font class="ColumnFONT"><? echo $row['total_venta']; ?></td>
                         <?php
                 }
