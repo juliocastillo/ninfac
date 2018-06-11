@@ -1,0 +1,1 @@
+mysqldump.exe --user ninfac --password=123 --skip-opt ninfacdb > f:/ninfac_respaldo_2016.sql
