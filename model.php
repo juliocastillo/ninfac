@@ -189,6 +189,29 @@ class Model{
         return $db->consulta($sql);
     }
 
+	// obtener un listado general de productos con sus respectivos saldos
+    function get_ranking_ventas($finicio, $ffin){
+        $db=new MySQL();
+        $sql = "SELECT
+                  p.id,
+                  p.nombre,
+                  fa.cant_salida as total_venta
+                FROM producto p
+                  LEFT JOIN (SELECT id_producto,SUM(cantidad*precio_unit) AS cant_salida
+                            FROM facturas_detalle fd, facturacion f
+                            WHERE fd.id_documento = f.id AND
+                                  fecha_documento >= '$finicio' AND
+                                  fecha_documento <= '$ffin' AND 
+                                  fd.estado = 'A' GROUP BY fd.id_producto) fa ON fa.id_producto = p.id
+                WHERE fa.cant_salida !=0
+                ORDER BY total_venta DESC";
+        /*
+         * devuelve el arreglo
+         */
+        
+        return $db->consulta($sql);
+    }
+
 	//obtiene el detalle de movimientos por producto
     function get_lista_kardex($id_producto,$finicio,$ffin){
         $db=new MySQL();
