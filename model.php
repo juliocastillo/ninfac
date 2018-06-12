@@ -202,13 +202,15 @@ class Model{
                             FROM facturas_detalle fd, facturacion f
                             WHERE fd.id_documento = f.id AND
                                   fecha_documento >= '$finicio' AND
-                                  fecha_documento <= '$ffin' AND 
+                                  fecha_documento <= '$ffin' AND
+                                  tipo_documento != 6 AND
                                   fd.estado = 'A' GROUP BY fd.id_producto) fa01 ON fa01.id_producto = p.id
                   LEFT JOIN (SELECT id_producto,SUM(cantidad) AS cantidad_vendida
                             FROM facturas_detalle fd, facturacion f
                             WHERE fd.id_documento = f.id AND
                                   fecha_documento >= '$finicio' AND
-                                  fecha_documento <= '$ffin' AND 
+                                  fecha_documento <= '$ffin' AND
+                                  tipo_documento != 6 AND
                                   fd.estado = 'A' GROUP BY fd.id_producto) fa02 ON fa02.id_producto = p.id
                 WHERE fa01.monto_vendido !=0
                 ORDER BY monto_vendido DESC";
