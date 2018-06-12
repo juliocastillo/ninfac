@@ -50,7 +50,17 @@
                 width: 81px;
             }
             </style>
-       
+            <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+            <link href="css/select2.min.css" rel="stylesheet" type="text/css"/>
+            <script src="js/select2.min.js" type="text/javascript"></script>
+            <script>
+            $(document).ready(function() {
+                $('#id_cliente').select2();
+            });
+            $(document).ready(function() {
+                $('#id_producto').select2();
+            });
+            </script>
     </head>
     <body class="PageBODY">
         <form method="POST" action="{action}" name="frm" id="frm" style="background-color:white;">
@@ -142,7 +152,7 @@
                     <td>
                         <input type="text" name="cantidad" id="cantidad" value="{cantidad}" maxlength="10" size="10" onblur="calculo_ventas()" style="text-align: center"/></td>
                     <td>
-                        <select name="id_producto" id="id_producto">
+                        <select name="id_producto" id="id_producto" style="width: 350px;">
                             <option value="000">...Seleccione...</option>
                             {id_producto}
                         </select>
@@ -203,9 +213,16 @@
             var c = parseInt(document.getElementById('cantidad').value)
             var p = parseFloat(document.getElementById('precio_unit').value)
             var t = c*p
-            if (document.getElementById('cantidad').value!="" && document.getElementById('precio_unit').value!=""){
-                document.getElementById('ventas_gravadas').value = decimales(t,2);
-                document.getElementById('precio_unit').value = decimales(p,2)
+            var tipo_doc = parseInt(document.getElementById('tipo_documento').value)
+            if (document.getElementById('cantidad').value!=="" && document.getElementById('precio_unit').value!==""){
+                if (tipo_doc===6) {
+                    document.getElementById('ventas_no_sujetas').value = decimales(t,2);
+                    document.getElementById('ventas_gravadas').value = 0;
+                } else {
+                    document.getElementById('ventas_gravadas').value = decimales(t,2);
+                    document.getElementById('precio_unit').value = decimales(p,2)
+                    document.getElementById('ventas_no_sujetas').value = 0;
+                }
             }
         }
         

@@ -155,7 +155,7 @@ class Htmlcliente{
     function llenarlista($sel){
         $db = new MySQL();
         $sqlcommand = "SELECT id, CONCAT(nombre,' ',nombre_comercial) AS nombre
-                        FROM clientes WHERE estado='A' ORDER BY nombre,nombre_comercial";
+                        FROM clientes WHERE estado='A' AND nombre is not null ORDER BY nombre,nombre_comercial";
         $result = $db->consulta($sqlcommand);
         $html = "";
         while($row = $db->fetch_array($result)){

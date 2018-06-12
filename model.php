@@ -195,16 +195,23 @@ class Model{
         $sql = "SELECT
                   p.id,
                   p.nombre,
-                  fa.cant_salida as total_venta
+                  fa01.monto_vendido as monto_vendido,
+                  fa02.cantidad_vendida as cantidad_vendida
                 FROM producto p
-                  LEFT JOIN (SELECT id_producto,SUM(cantidad*precio_unit) AS cant_salida
+                  LEFT JOIN (SELECT id_producto,SUM(cantidad*precio_unit) AS monto_vendido
                             FROM facturas_detalle fd, facturacion f
                             WHERE fd.id_documento = f.id AND
                                   fecha_documento >= '$finicio' AND
                                   fecha_documento <= '$ffin' AND 
-                                  fd.estado = 'A' GROUP BY fd.id_producto) fa ON fa.id_producto = p.id
-                WHERE fa.cant_salida !=0
-                ORDER BY total_venta DESC";
+                                  fd.estado = 'A' GROUP BY fd.id_producto) fa01 ON fa01.id_producto = p.id
+                  LEFT JOIN (SELECT id_producto,SUM(cantidad) AS cantidad_vendida
+                            FROM facturas_detalle fd, facturacion f
+                            WHERE fd.id_documento = f.id AND
+                                  fecha_documento >= '$finicio' AND
+                                  fecha_documento <= '$ffin' AND 
+                                  fd.estado = 'A' GROUP BY fd.id_producto) fa02 ON fa02.id_producto = p.id
+                WHERE fa01.monto_vendido !=0
+                ORDER BY monto_vendido DESC";
         /*
          * devuelve el arreglo
          */

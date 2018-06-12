@@ -68,7 +68,8 @@ if ($finicio && $ffin) {
     <table class="FormTABLE" style="border: 1px gainsboro solid; border-collapse: collapse;">
         <tr><td style="border: 1px black solid; padding: 0px 1px 0px 1px">Corr</td>
             <td style="border: 1px black solid; padding: 0px 1px 0px 1px">Producto</td>
-            <td style="border: 1px black solid; padding: 0px 1px 0px 1px">Venta</td>
+            <td style="border: 1px black solid; padding: 0px 1px 0px 1px">Cantidad vendida</td>
+            <td style="border: 1px black solid; padding: 0px 1px 0px 1px">Monto vendido</td>
                 <?php 
                 $i=0;
                 while ($row = $db->fetch_array($consulta)){
@@ -78,7 +79,8 @@ if ($finicio && $ffin) {
                        <td align="center" style="background-color: white;border: 1px gainsboro solid; padding: 3px"><font class="ColumnFONT"><?php echo $i; ?></td>
                        <td style="background-color: white; border: 1px gainsboro solid; font-family: arial; font-size: 15px">
                            <? echo $row['nombre']; ?></td>
-                       <td align="right" style="background-color: white;border: 1px gainsboro solid;font-weight: normal;"><font class="ColumnFONT"><? echo $row['total_venta']; ?></td>
+                       <td align="right" style="background-color: white;border: 1px gainsboro solid;font-weight: normal;"><font class="ColumnFONT"><? echo $row['cantidad_vendida']; ?></td>
+                       <td align="right" style="background-color: white;border: 1px gainsboro solid;font-weight: normal;"><font class="ColumnFONT"><? echo $row['monto_vendido']; ?></td>
                         <?php
                 }
                 ?>
