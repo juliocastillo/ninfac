@@ -87,11 +87,11 @@ if ($rec['tipo_documento']==1){ //F A C T U R A
     
 //    detalle
     $tab3=8;
-    $tab4=25;
-    $tab5=125;
+    $tab4=18;
+    $tab5=115;
     $tab6=140;
     $tab7=160;
-    $tab8=185;
+    $tab8=180;
     
     $br = 3.5;
     
@@ -101,7 +101,7 @@ if ($rec['tipo_documento']==1){ //F A C T U R A
     
     $pdf->SetFont('Courier','B',10);
     $pdf->Ln(32);
-    $pdf->Cell($tab2-10);
+    $pdf->Cell($tab2-20);
     $pdf->Cell(30,10,$rec['dia_documento'].'        '.mes_en_letras($rec['mes_documento']));
 	$pdf->Cell(30,10,'             '.$rec['anio_documento']);
 
@@ -174,7 +174,7 @@ if ($rec['tipo_documento']==1){ //F A C T U R A
         $pdf->Cell(0,10,$row['precio_unit']);
         $pdf->Ln(0);
         $pdf->Cell($tab8);
-        $pdf->Cell(0,10,$row['ventas_gravadas']);
+        $pdf->Cell(0,10,$row['ventas_gravadas'],0,0,'R');
         $pdf->Ln($br);
     }
     
@@ -184,17 +184,17 @@ if ($rec['tipo_documento']==1){ //F A C T U R A
 
 
     
-    $pdf->SetXY(170, 208);
+    $pdf->SetXY(170, 203);
     $pdf->Ln(0);
     $pdf->Cell($tab4);
-    $pdf->Cell(0,10,num2letras($totales['ventas_gravadas']));
+    $pdf->Cell(0,10,num2letras($totales['ventas_gravadas'],0,0,'R'));
     
     $pdf->Ln(0);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,$totales['ventas_gravadas']);
-    $pdf->Ln($br*9);
+    $pdf->Cell(0,10,$totales['ventas_gravadas'],0,0,'R');
+    $pdf->Ln($br*10);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,$totales['ventas_gravadas']);
+    $pdf->Cell(0,10,$totales['ventas_gravadas'],0,0,'R');
     
     
     $pdf->Output();
@@ -230,8 +230,8 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
     
 //    detalle
     $tab3=5;
-    $tab4=20;
-    $tab5=120;
+    $tab4=16;
+    $tab5=118;
     $tab6=140;
     $tab7=160;
     $tab8=180;
@@ -246,7 +246,7 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
 
     $pdf->Ln(34);
     
-	$pdf->Cell($tab2-8);
+	$pdf->Cell($tab2-15);
     $pdf->Cell(40,10, $rec['dia_documento'].'        '.mes_en_letras($rec['mes_documento']));
 	$pdf->Cell(30,10,'            '.$rec['anio_documento']);
 	
@@ -267,7 +267,7 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
     $pdf->Cell(40,10,$rec['dir']);
 
     $pdf->Ln(-2);
-    $pdf->Cell($tab2);
+    $pdf->Cell($tab2-15);
     $pdf->Cell(40,10,'     '.$rec['giro']);
     
     $pdf->Ln(7);
@@ -319,7 +319,7 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
             WHERE id_documento='$id_documento'");
     
 //    detalle
-	$br = 3.05; // ajustar el espaciado entre lineas
+	$br = 3.00; // ajustar el espaciado entre lineas
     $pdf->Ln($br*5);
     while ($row = $db->fetch_array($consulta)){
         $pdf->Ln($br);
@@ -333,7 +333,7 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
         $pdf->Cell(0,10,$row['precio_unit']);
         $pdf->Ln(0);
         $pdf->Cell($tab8);
-        $pdf->Cell(0,10,$row['ventas_gravadas']);
+        $pdf->Cell(0,10,$row['ventas_gravadas'],0,0,'R');
         $pdf->Ln($br);
     }
 	
@@ -341,8 +341,8 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
 	$pdf->Cell($tab3);
 	$pdf->Cell(0,10,$rec['comentario']);
 	
-    $br=5.75;
-    $pdf->SetXY(170, 183);
+    $br=5.20;
+    $pdf->SetXY(170, 180);
     
     $pdf->Ln(0);
     $pdf->Cell($tab4);
@@ -350,20 +350,20 @@ if ($rec['tipo_documento']==2){ //  C R E D I T O  F I S C A L
 
     $pdf->Ln(0);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,' '.$totales['ventas_gravadas']);
+    $pdf->Cell(0,10,' '.$totales['ventas_gravadas'],0,0,'R');
     
     $pdf->Ln($br);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,' '.$totales['iva']);
+    $pdf->Cell(0,10,' '.$totales['iva'],0,0,'R');
     $pdf->Ln($br);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,' '.$totales['subtotal']);
+    $pdf->Cell(0,10,' '.$totales['subtotal'],0,0,'R');
     $pdf->Ln($br);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,' '.$totales['iva_retenido']);
+    $pdf->Cell(0,10,' '.$totales['iva_retenido'],0,0,'R');
      $pdf->Ln($br*3);
     $pdf->Cell($tab8);
-    $pdf->Cell(0,10,' '.$totales['venta_total']);
+    $pdf->Cell(0,10,' '.$totales['venta_total'],0,0,'R');
     
     $pdf->Output();
 }
